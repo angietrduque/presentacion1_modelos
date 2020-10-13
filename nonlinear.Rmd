@@ -47,53 +47,50 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. 
 En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de xi, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
 
 $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
-y se ajusta al modelo:
+**Tabla:** Estimaciones para el modelo utilizando variables explicativas centradas y escaladas.
+<table>
+|          Término         	| Estimación $b_{j}$ 	| Error estándar 	|
+| ------------------------	|  ------------------	|  --------------	|
+| Constante                	|             37.600 	|          1.332 	|
+| Coeficiente para la edad 	|             -1.452 	|          1.397 	|
+| Coeficiente de peso      	|             -3.793 	|          1.385 	|
+| Coeficiente de proteína  	|             4.350  	|          1.411 	|
+
+
+<div/>
+
+# Ajuste del modelo
+##
+<div style="text-align: justify">
+
+Y se ajusta al modelo:
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
+<div/>
+
+# Ventajas
+##
+<div style="text-align: justify">
+
+* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
+
+* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
+
+* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
+
 <div/>
 
 # Ejemplo en R
 ##
 <div style="text-align: justify">
 
-```{r echo=FALSE}
-# https://rpubs.com/juanhklopper/Nonlinear-modeling-Intro-to-R-Modeling-Series
-Ks <- c(100, 200, 150) 
-n0 <- c(5, 5, 6)
-r <- c(0.15, 0.2, 0.15)
-time <- 1:50
+### Datos de la revista PLOS Medicine
 
-logF <- function(time, K, n0, r){
-  d <- K * n0 * exp(r*time) / (K + n0 * (exp(r*time) - 1))
-  return(d)
-}
-
-set.seed(123)
-dat <- data.frame(Group = character(),
-                  Time = numeric(),
-                  Count = numeric())
-
-for(i in 1:3){
-  Ab <- logF(time = time, K = Ks[i], n0 = n0[i], r = r[i])
-  tmp <- data.frame(Group = paste0("G", i), Time = time,
-                    Count = Ab + rnorm(time, 0, 5))
-  dat <-rbind(dat, tmp)
-}
-
-plot_ly(data = dat,
-        x = ~Time,
-        y = ~Count,
-        color = ~Group,
-        type = "scatter",
-        mode = "markers") %>% layout(title = "Growth over time for three groups", 
-                                     yaxis = list(zeroline = F))
-```
-
-
+Los datos corresponden a $878$ artículos de revistas publicados en la revista PLOS Medicine entre 2011 y 2015. El gráfico muestra el número de autores en el eje $x$ y la longitud del título del artículo (incluidos los espacios) en el eje $y$. Hubo $15$ artículos con más de $30$ autores que se truncaron a $30$. Como el número de autores es discreto, un diagrama de dispersión estándar probablemente tergiversaría los datos ya que los puntos se superpondrían y, por lo tanto, se ocultarían. Para evitar esto, se alteraron los puntos, lo que significa que se agregó un pequeño valor aleatorio a cada punto para evitar la superposición.
 
 
 # Bibliografía
 ##
 
-
+* Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
 
