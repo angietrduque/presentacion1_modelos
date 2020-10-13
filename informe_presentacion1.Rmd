@@ -15,7 +15,7 @@ output:
 ##
 <div style="text-align: justify">
 
-Hasta ahora solo hemos considerado asociaciones lineales entre X e y, donde un aumento de delta en una variable explicativa continua xi produce el mismo cambio βi en y para todos los valores de xi. βi a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
+Hasta ahora solo hemos considerado asociaciones lineales entre X e y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
 Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
