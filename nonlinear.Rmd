@@ -26,6 +26,15 @@ suppressMessages(library(reshape2))
 
 # Introducción
 ##
+Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
+
+$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
+
+Antes de aplicar un modelo de regresión lineal simple, se hace necesario conocer si los datos se pueden ajustar a un modelo de regresión lineal, es decir conocer el grado de asociación entre la variable de respuesta y las variables predictoras y a su vez poder determinar la proporción de variabilidad existente entre la variable dependiente explicada por la variable independiente. 
+
+Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+
+$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. $$
 
 
 # Test de correlación de pearson
@@ -43,24 +52,11 @@ Se utiliza para estudiar la asociación entre un factor de estudio y una variabl
 <div/>
 
 
-# Definición
+# Centramiento de las variables
 ##
 <div style="text-align: justify">
 
-Hasta ahora solo hemos considerado asociaciones lineales entre X e y, donde un aumento de delta en una variable explicativa continua xi produce el mismo cambio βi en y para todos los valores de xi. βi a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
-
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
-Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
-
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. $$
-
-<div/>
-
-# Centrar
-##
-<div style="text-align: justify">
-
-En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de xi, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
+En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
 
 $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 **Tabla:** Estimaciones para el modelo utilizando variables explicativas centradas y escaladas.
