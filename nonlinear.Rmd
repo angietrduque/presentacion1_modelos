@@ -100,16 +100,137 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
 ##
 <div style="text-align: justify">
 
-### Regresión polinomial
+### **Regresión polinomial**
 
 Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible *(mpg)* en función de la potencia del motor *(horsepower)*.
 
+<center>
 ```{r warning=FALSE, include=T, paged.print=F}
 library(ISLR)
 attach(Auto)
 plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
      col = "grey")
 ```
+
+<div style="text-align: justify">
+
+La representación gráfica de los datos muestra una fuerte asociación entre el consumo y la potencia del motor. La distribución de las observaciones apunta a que la relación entre ambas variables tiene cierta curvatura, por lo que un modelo lineal no puede captarla por completo.
+
+<div>
+
+##
+
+<div style="text-align: justify">
+```{r warning=FALSE, include=T, paged.print=F}
+attach(Auto)
+modelo_lineal <- lm(formula = mpg ~ horsepower, data = Auto)
+summary(modelo_lineal)
+```
+<div>
+
+##
+
+<div style="text-align: justify">
+
+<center>
+```{r warning=FALSE, include=T, paged.print=F}
+plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
+     col = "grey")
+abline(modelo_lineal, lwd = 3, col = "red")
+```
+
+<div style="text-align: justify">
+
+Una forma de incorporar asociaciones no lineales a un modelo lineal es mediante transformaciones de los predictores incluidos en el modelo, por ejemplo, elevándolos a distintas potencias. En este caso, el tipo de curvatura es de tipo cuadrática, por lo que un polinomio de segundo grado podría mejorar el modelo.
+
+<div>
+
+##
+
+<div style="text-align: justify">
+
+En R se pueden generar modelos de regresión polinómica de diferentes formas:
+
++ Identificando cada elemento del polinomio: 
+
+$$modelo\_pol2 \leftarrow lm(formula = mpg \sim horsepower + I(horsepower^{2}), data = Auto)$$ 
+
+**Nota:** El uso de I() es necesario ya que el símbolo $^$ tiene otra función dentro de las fórmulas de R.
+
++ Con la función poly(): 
+
+$$lm(formula = mpg \sim poly(horsepower, 2), data = Auto)$$
+
+```{r warning=FALSE, include=T, paged.print=F}
+modelo_cuadratico <- lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
+summary(modelo_cuadratico)
+```
+
+<div>
+
+##
+<div style="text-align: justify">
+
+<center>
+```{r warning=FALSE, include=T, paged.print=F}
+par(mfrow = c(2, 2))
+plot(modelo_cuadratico)
+```
+
+<div style="text-align: justify">
+
+El valor $R^{2}$ del modelo cuadrático $(0.6876)$ es mayor que el obtenido con el modelo lineal simple $(0.6059)$ y el p-value del término cuadrático es altamente significativo. Se puede concluir que el modelo cuadrático recoge mejor la verdadera relación entre el consumo de los vehículos y la potencia de su motor.
+
+<div>
+
+##
+<div style="text-align: justify">
+
+Al tratarse de modelos anidados, es posible emplear un ANOVA para contrastar la hipótesis nula de que ambos modelos se ajustan a los datos igual de bien.
+
+
+```{r warning=FALSE, include=T, paged.print=F}
+anova(modelo_lineal, modelo_cuadratico)
+```
+
+El ANOVA muestra claras evidencias de que incluir el término cuadrático mejora el modelo.
+
+<div>
+
+##
+<div style="text-align: justify">
+
+<center>
+```{r warning=FALSE, include=T, paged.print=F}
+library(ggplot2)
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+    geom_point(colour = "grey") +
+    stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red") +
+    labs(title = "Consumo vs potencia motor") +
+    theme_bw()
+```
+
+<div>
+
+##
+<div style="text-align: justify">
+
+### **Conclusiones:**
+
++ La elección del grado del polinomio influye directamente en la flexibilidad del modelo. 
+
+    - Cuanto mayor es el grado del polinomio más se ajusta el modelo a las observaciones, un polinomio de grado $n\circ observaciones-1$ pasa por todos los puntos. 
+    - Por lo tanto, es importante no excederse en el grado del polinomio para no causar problemas de overfitting (no suele recomendarse ir más allá de grado 3-4). 
+
++ Existen varias estrategias para identificar el grado óptimo del polinomio:
+
+    - Incrementar secuencialmente el orden del polinomio hasta que la nueva incorporación no sea significativa.
+
+    - Iniciar el proceso con un polinomio de grado alto e ir eliminando secuencialmente, de mayor a menor, los términos no significativos.
+
+    - Emplear un ANOVA para comparar cada nuevo modelo con el de orden inferior y determinar si la mejora es significativa. Este proceso es equivalente al primero. Ver ejemplo en Regresión Polinomial: incorporar no-linealidad a los modelos lineales.
+
+    - Emplear cross-validation. En el capítulo Validación de modelos de regresión: Cross-validation, OneLeaveOut, Bootstrap se explica cómo emplear la validación-cruzada para identificar el grado adecuado.
 
 <div>
 
