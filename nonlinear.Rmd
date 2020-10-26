@@ -100,9 +100,18 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
 ##
 <div style="text-align: justify">
 
-### Datos de la revista PLOS Medicine
+### Regresión polinomial
 
-Los datos corresponden a $878$ artículos de revistas publicados en la revista PLOS Medicine entre 2011 y 2015. El gráfico muestra el número de autores en el eje $x$ y la longitud del título del artículo (incluidos los espacios) en el eje $y$. Hubo $15$ artículos con más de $30$ autores que se truncaron a $30$. Como el número de autores es discreto, un diagrama de dispersión estándar probablemente tergiversaría los datos ya que los puntos se superpondrían y, por lo tanto, se ocultarían. Para evitar esto, se alteraron los puntos, lo que significa que se agregó un pequeño valor aleatorio a cada punto para evitar la superposición.
+Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible *(mpg)* en función de la potencia del motor *(horsepower)*.
+
+```{r warning=FALSE, include=T, paged.print=F}
+library(ISLR)
+attach(Auto)
+plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
+     col = "grey")
+```
+
+<div>
 
 
 # Bibliografía
