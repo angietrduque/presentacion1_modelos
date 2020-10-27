@@ -26,6 +26,7 @@ suppressMessages(library(reshape2))
 
 # Introducción
 ##
+<div style="text-align: justify">
 Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
@@ -36,38 +37,79 @@ Una asociación en forma de U se puede modelar agregando una versión cuadrátic
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. $$
 
+<div>
 
-# Test de correlación de pearson
 ##
 <div style="text-align: justify">
+
+### **Correlación lineal**
+
+Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
+
+$$Covarianza \hspace{0.2cm} muestral=Cov(X,Y)= \frac{\displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+siendo $\bar{x}$ e $\bar{y}$ la media de cada variable y $x_i$ e $y_i$ el valor de las variables para la observación i.
+
+### **Características:**
+
++ Todos ellos varían entre +1 y -1. Siendo +1 una correlación positiva perfecta y -1 una correlación negativa perfecta.
+
++ Se emplean como medida de fuerza de asociación (tamaño del efecto):
+    -0: asociación nula.
+    -0.1: asociación pequeña.
+    -0.3: asociación mediana.
+    -0.5: asociación moderada.
+    -0.7: asociación alta.
+    -0.9: asociación muy alta.
+
+<div>
+
+##
+<div style="text-align: justify">
+
+Las principales diferencias entre estos tres coeficientes de asociación son:
+
++ La correlación de Pearson funciona bien con variables cuantitativas que tienen una distribución normal. En el libro Handbook of Biological Statatistics se menciona que sigue siendo bastante robusto a pesar de la falta de normalidad. Es más sensible a los valores extremos que las otras dos alternativas.
+
++ La correlación de Spearman se emplea cuando los datos son ordinales, de intervalo, o bien cuando no se satisface la condición de normalidad para variables continuas y los datos se pueden transformar a rangos. Es un método no paramétrico.
+
++ La correlación de Kendall es otra alternativa no paramétrica para el estudio de la correlación que trabaja con rangos. Se emplea cuando se dispone de pocos datos y muchos de ellos ocupan la misma posición en el rango, es decir, cuando hay muchas ligaduras.
+
+<div>
+
+##
+<div style="text-align: justify">
+
+### **Coeficiente de correlación de Pearson**
 
 Se utiliza para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa, mide el grado de asociación entre dos variables tomando valores entre $-1$ y $1$.
 
-+ Valores próximos a $1$ indicarán fuerte asociación lineal positiva.
++ **Población:**
 
-+ Valores próxi­mos a $-1$ indicarán fuerte asociación lineal negativa.
+$$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
+- **Muestra:**
 
-+ Valores próximos a $0$ indicarán no asociación lineal, lo que no significa que no pueda existir otro tipo de asociación.
+$$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
 
 <div/>
 
-
-# Centramiento de las variables
 ##
 <div style="text-align: justify">
 
-En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
+### **Coeficiente de correlación de Spearman**
 
-$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
-**Tabla:** Estimaciones para el modelo utilizando variables explicativas centradas y escaladas.
-<table>
-|          Término         	| Estimación $b_{j}$ 	| Error estándar 	|
-| ------------------------	|  ------------------	|  --------------	|
-| Constante                	|             37.600 	|          1.332 	|
-| Coeficiente para la edad 	|             -1.452 	|          1.397 	|
-| Coeficiente de peso      	|             -3.793 	|          1.385 	|
-| Coeficiente de proteína  	|             4.350  	|          1.411 	|
+$$r_{s}=1-\frac{6\sum d^{2}_{i}}{n(n^{2}-1)}$$
 
+Siendo $d_{i}$ la distancia entre los rangos de cada observación $(x_{i}−y_{i})$ y $n$ el número de observaciones.
+
+<div/>
+
+<div style="text-align: justify">
+
+### **Coeficiente Tau de Kendall**
+
+$$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
+
+Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
 
 <div/>
 
@@ -78,11 +120,21 @@ $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 Y se ajusta al modelo:
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
+
 <div/>
 
-# Ventajas
+ 
 ##
 <div style="text-align: justify">
+
+### **Centramiento de las variables**
+
+En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
+
+$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
+
+
+### **Ventajas**
 
 * Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
 
@@ -236,3 +288,5 @@ ggplot(Auto, aes(x = horsepower, y = mpg)) +
 
 * Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
 
+
+# ¡Gracias por tu atención!
