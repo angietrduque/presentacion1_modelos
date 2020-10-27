@@ -42,6 +42,23 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. 
 ##
 <div style="text-align: justify">
 
+### **Regresión lineal simple**
+
+$$Y=\beta_{0}+\beta_{1}X_{1}+\epsilon$$
+
+### **Regresión lineal múltiple**
+
+$$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}$$
+
+### **Regresión polinómica**
+
+$$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
+
+<div>
+
+##
+<div style="text-align: justify">
+
 ### **Correlación lineal**
 
 Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
