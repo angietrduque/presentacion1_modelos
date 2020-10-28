@@ -25,22 +25,11 @@ suppressMessages(library(reshape2))
 
 
 # Introducción
+
 ##
 <div style="text-align: justify">
+
 Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
-
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
-
-Antes de aplicar un modelo de regresión lineal simple, se hace necesario conocer si los datos se pueden ajustar a un modelo de regresión lineal, es decir conocer el grado de asociación entre la variable de respuesta y las variables predictoras y a su vez poder determinar la proporción de variabilidad existente entre la variable dependiente explicada por la variable independiente. 
-
-Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
-
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. $$
-
-<div>
-
-##
-<div style="text-align: justify">
 
 ### **Regresión lineal simple**
 
@@ -50,9 +39,42 @@ $$Y=\beta_{0}+\beta_{1}X_{1}+\epsilon$$
 
 $$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}$$
 
+<div>
+
+##
+<div style="text-align: justify">
+
+### **Centramiento de las variables**
+
+En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
+
+$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
+
+
+### **Ventajas**
+
+* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
+
+* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
+
+* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
+
+<div/>
+
+##
+<div style="text-align: justify">
+
+Antes de aplicar un modelo de regresión lineal simple, se hace necesario conocer si los datos se pueden ajustar a un modelo de regresión lineal, es decir conocer el grado de asociación entre la variable de respuesta y las variables predictoras y a su vez poder determinar la proporción de variabilidad existente entre la variable dependiente explicada por la variable independiente. 
+
+Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+
 ### **Regresión polinómica**
 
 $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
+
+Y se ajusta al modelo:
+
+$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
 
 <div>
 
@@ -127,37 +149,6 @@ Siendo $d_{i}$ la distancia entre los rangos de cada observación $(x_{i}−y_{i
 $$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
 
 Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
-
-<div/>
-
-# Ajuste del modelo
-##
-<div style="text-align: justify">
-
-Y se ajusta al modelo:
-
-$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
-
-<div/>
-
- 
-##
-<div style="text-align: justify">
-
-### **Centramiento de las variables**
-
-En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
-
-$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
-
-
-### **Ventajas**
-
-* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
-
-* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
-
-* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
 
 <div/>
 
