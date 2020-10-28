@@ -170,39 +170,50 @@ $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible *(mpg)* en función de la potencia del motor *(horsepower)*.
 
 <center>
-```{r warning=FALSE, include=T, paged.print=F}
+```{r warning=FALSE, include=F, paged.print=F}
 library(ISLR)
 attach(Auto)
-plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
-     col = "grey")
+G1 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black")
+```
+
+```{r fig.height=3, fig.width=8, warning=FALSE, include=T, paged.print=FALSE}
+G1
 ```
 
 <div style="text-align: justify">
-
 La representación gráfica de los datos muestra una fuerte asociación entre el consumo y la potencia del motor. La distribución de las observaciones apunta a que la relación entre ambas variables tiene cierta curvatura, por lo que un modelo lineal no puede captarla por completo.
 
 <div>
 
-##
+## **Modelo lineal**
 
 <div style="text-align: justify">
-```{r warning=FALSE, include=T, paged.print=F}
+```{r message=F, warning=F, include=T, paged.print=FALSE}
 attach(Auto)
 modelo_lineal <- lm(formula = mpg ~ horsepower, data = Auto)
-summary(modelo_lineal)
 ```
 <div>
+
+```{r warning=F, include=T, paged.print=F}
+summary(modelo_lineal)
+```
+
 
 ##
 
 <div style="text-align: justify">
 
 <center>
-```{r warning=FALSE, include=T, paged.print=F}
-plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
-     col = "grey")
-abline(modelo_lineal, lwd = 3, col = "red")
+```{r warning=FALSE, include=F, paged.print=F}
+G2 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black") + 
+  geom_smooth(method='lm', se = FALSE)
+
 ```
+
+```{r fig.height=4, fig.width=8, message=F, warning=FALSE, include=T, paged.print=FALSE}
+G2
+```
+
 
 <div style="text-align: justify">
 
@@ -225,6 +236,8 @@ $$modelo\_pol2 \leftarrow lm(formula = mpg \sim horsepower + I(horsepower^{2}), 
 + Con la función poly(): 
 
 $$lm(formula = mpg \sim poly(horsepower, 2), data = Auto)$$
+
+## **Modelo Polinomico**
 
 ```{r warning=FALSE, include=T, paged.print=F}
 modelo_cuadratico <- lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
@@ -266,14 +279,17 @@ El ANOVA muestra claras evidencias de que incluir el término cuadrático mejora
 <div style="text-align: justify">
 
 <center>
-```{r warning=FALSE, include=T, paged.print=F}
+```{r warning=FALSE, include=F, paged.print=F}
 library(ggplot2)
-ggplot(Auto, aes(x = horsepower, y = mpg)) +
+G3 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
     geom_point(colour = "grey") +
-    stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red") +
-    labs(title = "Consumo vs potencia motor") +
-    theme_bw()
+    stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se=F) 
 ```
+
+```{r warning=FALSE, include=T, paged.print=F}
+G3
+```
+
 
 <div>
 
