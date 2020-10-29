@@ -26,13 +26,93 @@ suppressMessages(library(GGally))
 
 ```
 
-
 # Introducción
+##
+<div style="text-align: justify">
+
+### **Relación lineal**
+
+La correlación lineal y la regresión lineal simple son métodos estadísticos que estudian la relación lineal existente entre dos variables. 
+
+**Diferencias:**
+
++ La correlación cuantifica como de relacionadas están dos variables, mientras que la regresión lineal genera un modelo, el cual se basa de la relación existente entre ambas variables, para predecir el valor de una a partir de la otra.
+
+- El cálculo de la correlación entre dos variables mide únicamente la relación entre ambas sin considerar dependencias. En el caso de la regresión lineal, el modelo varía según qué variable se considere dependiente de la otra.
+
++ Primero se analiza si ambas variables están correlacionadas y, en caso de estarlo, se procede a generar el modelo de regresión.
+
+# Correlación lineal
 
 ##
 <div style="text-align: justify">
 
-Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
+Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
+
+$$Covarianza \hspace{0.2cm} muestral=Cov(X,Y)= \frac{\displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+
+Donde:
+
++ $\bar{x}$ e $\bar{y}:$ Son la media de cada variable
+
++ $x_i$ e $y_i:$ Son el valor de las variables para la observación $i$.
+
+<div>
+
+##
+<div style="text-align: justify">
+
+### **Coeficiente de correlación de Pearson**
+
+Se utiliza para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa, mide el grado de asociación entre dos variables tomando valores entre $-1$ y $1$.
+
++ **Población:**
+
+$$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
++ **Muestra:**
+
+$$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
+
+<div/>
+
+##
+<div style="text-align: justify">
+
+### **Coeficiente de correlación de Spearman**
+
+$$r_{s}=1-\frac{6\sum d^{2}_{i}}{n(n^{2}-1)}$$
+
+Siendo $d_{i}$ la distancia entre los rangos de cada observación $(x_{i}−y_{i})$ y $n$ el número de observaciones.
+
+<div/>
+
+<div style="text-align: justify">
+
+### **Coeficiente Tau de Kendall**
+
+$$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
+
+Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
+
+<div/>
+
+##
+<div style="text-align: justify">
+
+Las principales diferencias entre estos tres coeficientes de asociación son:
+
++ La correlación de Pearson funciona bien con variables cuantitativas que tienen una distribución normal. Es más sensible a los valores extremos que las otras dos alternativas.
+
++ La correlación de Spearman se emplea cuando los datos son ordinales, de intervalo, o bien cuando no se satisface la condición de normalidad para variables continuas y los datos se pueden transformar a rangos. Es un método no paramétrico.
+
++ La correlación de Kendall es otra alternativa no paramétrica para el estudio de la correlación que trabaja con rangos. Se emplea cuando se dispone de pocos datos y muchos de ellos ocupan la misma posición en el rango, es decir, cuando hay muchas ligaduras.
+
+<div>
+
+# Regresión
+
+##
+<div style="text-align: justify">
 
 **Regresión lineal simple:** Consiste en generar un modelo de regresión (ecuación de una recta) que permita explicar la relación lineal que existe entre dos variables. 
 
@@ -89,6 +169,7 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
 
 <div>
 
+# Modelos lineales generalizados (GLM)
 ##
 <div style="text-align: justify">
 
@@ -109,80 +190,6 @@ $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\be
 
 <div>
 
-##
-<div style="text-align: justify">
-
-### **Correlación lineal**
-
-Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
-
-$$Covarianza \hspace{0.2cm} muestral=Cov(X,Y)= \frac{\displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
-siendo $\bar{x}$ e $\bar{y}$ la media de cada variable y $x_i$ e $y_i$ el valor de las variables para la observación i.
-
-### **Características:**
-
-+ Todos ellos varían entre +1 y -1. Siendo +1 una correlación positiva perfecta y -1 una correlación negativa perfecta.
-
-+ Se emplean como medida de fuerza de asociación (tamaño del efecto):
-    -0: asociación nula.
-    -0.1: asociación pequeña.
-    -0.3: asociación mediana.
-    -0.5: asociación moderada.
-    -0.7: asociación alta.
-    -0.9: asociación muy alta.
-
-<div>
-
-##
-<div style="text-align: justify">
-
-Las principales diferencias entre estos tres coeficientes de asociación son:
-
-+ La correlación de Pearson funciona bien con variables cuantitativas que tienen una distribución normal. En el libro Handbook of Biological Statatistics se menciona que sigue siendo bastante robusto a pesar de la falta de normalidad. Es más sensible a los valores extremos que las otras dos alternativas.
-
-+ La correlación de Spearman se emplea cuando los datos son ordinales, de intervalo, o bien cuando no se satisface la condición de normalidad para variables continuas y los datos se pueden transformar a rangos. Es un método no paramétrico.
-
-+ La correlación de Kendall es otra alternativa no paramétrica para el estudio de la correlación que trabaja con rangos. Se emplea cuando se dispone de pocos datos y muchos de ellos ocupan la misma posición en el rango, es decir, cuando hay muchas ligaduras.
-
-<div>
-
-##
-<div style="text-align: justify">
-
-### **Coeficiente de correlación de Pearson**
-
-Se utiliza para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa, mide el grado de asociación entre dos variables tomando valores entre $-1$ y $1$.
-
-+ **Población:**
-
-$$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
-+ **Muestra:**
-
-$$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
-
-<div/>
-
-##
-<div style="text-align: justify">
-
-### **Coeficiente de correlación de Spearman**
-
-$$r_{s}=1-\frac{6\sum d^{2}_{i}}{n(n^{2}-1)}$$
-
-Siendo $d_{i}$ la distancia entre los rangos de cada observación $(x_{i}−y_{i})$ y $n$ el número de observaciones.
-
-<div/>
-
-<div style="text-align: justify">
-
-### **Coeficiente Tau de Kendall**
-
-$$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
-
-Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
-
-<div/>
-
 # Ejemplo en R
 ##
 <div style="text-align: justify">
@@ -201,6 +208,9 @@ data("Wage")
 <div>
 
 ##
+
+### **Representación gráfica**
+
 <center>
 ```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
 ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
@@ -327,10 +337,11 @@ G4 <- ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black") +
 ggplotly(G4)
 ```
 
-
-
-# Bibliografía
 ##
+
+### **Bibliografía**
+
+<div style="text-align: justify">
 
 * Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
 
@@ -338,6 +349,6 @@ ggplotly(G4)
 
 * James, G., Witten, D., Hastie, T., & Tibshirani, R. (2015). An Introduction to Statistical Learning with Applications in R, Edn. 6th.
 
-
+<div>
 
 # ¡Gracias por tu atención!
