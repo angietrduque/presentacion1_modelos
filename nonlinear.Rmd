@@ -92,6 +92,26 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
 ##
 <div style="text-align: justify">
 
+### **Modelos lineales generalizados (GLM)**
+
+Los modelos polinómicos se pueden ajustar mediante regresión lineal por mínimos cuadrados ya que, aunque generan modelos no lineales, su ecuación no deja de ser una ecuación lineal con predictores $x, x_2, x_3, ..., x_d$. 
+
+Por esta misma razón, las funciones polinómicas pueden emplearse en regresión logística para predecir respuestas binarias. Solo es necesario realizar una transformación logit.
+
+
+$$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}{1+exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}}$$
+
+**Recomendaciones**
+
+* En el libro Introduction to Statistical Learning no aconsejan el uso de modelos polinómicos con grado mayor de 3 o 4 debido a un exceso de flexibilidad (overfitting), principalmente en los extremos del predictor X. 
+
+* La selección del grado de polinomio óptimo puede hacerse mediante cross validation.
+
+<div>
+
+##
+<div style="text-align: justify">
+
 ### **Correlación lineal**
 
 Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
@@ -167,189 +187,51 @@ Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la 
 ##
 <div style="text-align: justify">
 
-### **Regresión polinomial**
+### **Conjunto de datos**
 
-Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible *(mpg)* en función de la potencia del motor *(horsepower)*.
-
-<center>
-
-```{r warning=FALSE, include=T, paged.print=TRUE}
-library(ISLR)
-attach(Auto)
-
-# Variable dicotomica calidadAB
-hp <- vector()
-hp[Auto$horsepower <= 150] <- "bajo"
-hp[Auto$horsepower > 150] <- "alto"
-hp <- as.factor(hp)
-```
-
-
-```{r warning=FALSE, include=F, paged.print=F}
-G1 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black")
-```
-
-```{r fig.height=3, fig.width=8, warning=FALSE, include=T, paged.print=FALSE}
-G1
-```
-
-<div style="text-align: justify">
-La representación gráfica de los datos muestra una fuerte asociación entre el consumo y la potencia del motor. La distribución de las observaciones apunta a que la relación entre ambas variables tiene cierta curvatura, por lo que un modelo lineal no puede captarla por completo.
-
-<div>
-
-## **Modelo lineal**
-
-<div style="text-align: justify">
-```{r message=F, warning=F, include=T, paged.print=FALSE}
-attach(Auto)
-modelo_1 <- glm(formula = mpg ~ hp, data = Auto, family = "binomial")
-```
-<div>
-
-```{r warning=F, include=T, paged.print=F}
-summary(modelo_1)
-```
-
-
-##
-
-<div style="text-align: justify">
-
-<center>
-```{r warning=FALSE, include=F, paged.print=F}
-G2 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black") + 
-  geom_smooth(method='lm', se = FALSE)
-
-```
-
-```{r fig.height=4, fig.width=8, message=F, warning=FALSE, include=T, paged.print=FALSE}
-ggplotly(G2)
-```
-
-
-<div style="text-align: justify">
-
-Una forma de incorporar asociaciones no lineales a un modelo lineal es mediante transformaciones de los predictores incluidos en el modelo, por ejemplo, elevándolos a distintas potencias. En este caso, el tipo de curvatura es de tipo cuadrática, por lo que un polinomio de segundo grado podría mejorar el modelo.
-
-<div>
-
-##
-
-<div style="text-align: justify">
-
-En R se pueden generar modelos de regresión polinómica de diferentes formas:
-
-+ Identificando cada elemento del polinomio: 
-
-$$modelo\_pol2 \leftarrow lm(formula = mpg \sim horsepower + I(horsepower^{2}), data = Auto)$$ 
-
-**Nota:** El uso de I() es necesario ya que el símbolo $^$ tiene otra función dentro de las fórmulas de R.
-
-+ Con la función poly(): 
-
-$$lm(formula = mpg \sim poly(horsepower, 2), data = Auto)$$
-
-## **Modelo Polinómico**
-
-```{r warning=FALSE, include=T, paged.print=F}
-modelo_cuadratico <- lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
-summary(modelo_cuadratico)
-```
+El set de datos *Wage* del paquete ISRL contiene información sobre 3000 trabajadores. Entre las 12 variables registradas se encuentra el salario (wage) y la edad (age). Dada la relación no lineal existente entre estas dos variables, se recurre a un modelo polinómico de grado 4 que permita predecir el salario en función de la edad.
 
 <div>
 
 ##
 <div style="text-align: justify">
 
-<center>
-```{r warning=FALSE, include=T, paged.print=F}
-par(mfrow = c(2, 2))
-plot(modelo_cuadratico)
-```
+### **Comparación de modelos por contraste de hipótesis ANOVA**
 
-<div style="text-align: justify">
-
-El valor $R^{2}$ del modelo cuadrático $(0.6876)$ es mayor que el obtenido con el modelo lineal simple $(0.6059)$ y el p-value del término cuadrático es altamente significativo. Se puede concluir que el modelo cuadrático recoge mejor la verdadera relación entre el consumo de los vehículos y la potencia de su motor.
+ 
 
 <div>
+
 
 ##
 <div style="text-align: justify">
 
-Al tratarse de modelos anidados, es posible emplear un ANOVA para contrastar la hipótesis nula de que ambos modelos se ajustan a los datos igual de bien.
+### **Validación cruzada**
 
-
-```{r warning=FALSE, include=T, paged.print=F}
-anova(modelo_lineal, modelo_cuadratico)
-```
-
-El ANOVA muestra claras evidencias de que incluir el término cuadrático mejora el modelo.
+Mediante cross-validation se identifica con que polinomio se consigue el mejor modelo. El proceso consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). El mejor modelo es aquel a partir del cual ya no hay una reducción sustancial del test error. 
 
 <div>
+
+# Ejemplo 2. Regresión polinómica logística
 
 ##
 <div style="text-align: justify">
 
-<center>
-```{r warning=FALSE, include=F, paged.print=F}
-library(ggplot2)
-G3 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
-    geom_point(colour = "black") +
-    stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se=F) 
-```
+### ** **
 
-```{r warning=FALSE, include=T, paged.print=F}
-ggplotly(G3)
-```
 
 
 <div>
-
-## 
-
-<center>
-```{r warning=FALSE, include=F, paged.print=F}
-G4 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black") +
-  stat_smooth(method = 'lm', formula = y ~ poly(x, 1), aes(colour = 'Lineal'), se = FALSE) +
-  stat_smooth(method = 'lm', formula = y ~ poly(x, 2), aes(colour = 'polynomial grado 2'), se= FALSE) +
-  stat_smooth(method = 'lm', formula = y ~ poly(x, 5), aes(colour = 'polynomial grado 5'), se = FALSE) +
-  stat_smooth(method = 'lm', formula = y ~ poly(x, 10), aes(colour = 'polynomial grado 10'), se = FALSE)
-  
-```
-
-```{r fig.height=6, fig.width=9, warning=FALSE, include=T, paged.print=F}
-ggplotly(G4)
-```
-<div>
-
-##
-<div style="text-align: justify">
-
-### **Conclusiones:**
-
-+ La elección del grado del polinomio influye directamente en la flexibilidad del modelo. 
-
-    - Cuanto mayor es el grado del polinomio más se ajusta el modelo a las observaciones, un polinomio de grado $n^{\circ} observaciones-1$ pasa por todos los puntos. 
-    - Por lo tanto, es importante no excederse en el grado del polinomio para no causar problemas de overfitting (no suele recomendarse ir más allá de grado 3-4). 
-
-+ Existen varias estrategias para identificar el grado óptimo del polinomio:
-
-    - Incrementar secuencialmente el orden del polinomio hasta que la nueva incorporación no sea significativa.
-
-    - Iniciar el proceso con un polinomio de grado alto e ir eliminando secuencialmente, de mayor a menor los términos no significativos.
-
-    - Emplear un ANOVA para comparar cada nuevo modelo con el de orden inferior y determinar si la mejora es significativa.
-
-    - Emplear cross-validation.
-
-<div>
-
 
 # Bibliografía
 ##
 
 * Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
+
+* Faraway, J. J. (2014). Linear models with R. CRC press.
+
+* James, G., Witten, D., Hastie, T., & Tibshirani, R. (2015). An Introduction to Statistical Learning with Applications in R, Edn. 6th.
+
 
 
 # ¡Gracias por tu atención!
