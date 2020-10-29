@@ -191,14 +191,39 @@ Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la 
 
 El set de datos *Wage* del paquete ISRL contiene información sobre 3000 trabajadores. Entre las 12 variables registradas se encuentra el salario (wage) y la edad (age). Dada la relación no lineal existente entre estas dos variables, se recurre a un modelo polinómico de grado 4 que permita predecir el salario en función de la edad.
 
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
+suppressMessages(library(ISLR))
+suppressMessages(library(boot))
+suppressMessages(library(plotly))
+data("Wage")
+```
+
 <div>
+
+##
+<center>
+```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
+```
 
 ##
 <div style="text-align: justify">
 
 ### **Comparación de modelos por contraste de hipótesis ANOVA**
 
- 
+```{r echo=TRUE, warning=FALSE, paged.print=FALSE}
+modelo_1 <- lm(wage ~ age, data = Wage)
+modelo_2 <- lm(wage ~ poly(age, 2), data = Wage)
+modelo_3 <- lm(wage ~ poly(age, 3), data = Wage)
+modelo_4 <- lm(wage ~ poly(age, 4), data = Wage)
+
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+anova(modelo_1, modelo_2, modelo_3, modelo_4)
+
+```
 
 <div>
 
@@ -212,16 +237,72 @@ Mediante cross-validation se identifica con que polinomio se consigue el mejor m
 
 <div>
 
-# Ejemplo 2. Regresión polinómica logística
+
+```{r echo=TRUE, message=TRUE, warning=TRUE, paged.print=FALSE}
+cv_MSE_k10 <- rep(NA,10)
+
+for (i in 1:10) {
+  modelo <- glm(wage ~ poly(age, i), data = Wage)
+  set.seed(17)
+  cv_MSE_k10[i] <- cv.glm(data = Wage, glmfit = modelo, K = 10)$delta[1]
+}
+p4 <- ggplot(data = data.frame(polinomio = 1:10, cv_MSE = cv_MSE_k10),
+             aes(x = polinomio, y = cv_MSE)) +
+      geom_point(colour = c("firebrick3")) +
+      geom_path()
+```
+
 
 ##
-<div style="text-align: justify">
+<center>
+```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+p4
+```
 
-### ** **
+# Ejemplo 2. Regresión polinómica logística
+
+## 
+### **Se genera la variable categorica**
+Se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para ajustar el modelo.
+
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+Wage$wage_superior250 <- I(Wage$wage > 250)
+```
 
 
+## 
+### **Ajuste del modelo logistico**
 
-<div>
+Se ajustan tres modelos Logit, esto teniendo en cuenta el resultado obtenido mediante validacion cruzada que arrojo que el polinomio con mejor ajuste es el de grado 3.
+
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+modelo_logit <- glm(wage_superior250  ~ poly(age, 2), family = "binomial", data = Wage)
+
+modelo_logit1 <- glm(wage_superior250  ~ poly(age, 3), family = "binomial", data = Wage)
+
+modelo_logit2 <- glm(wage_superior250  ~ poly(age, 4), family = "binomial", data = Wage)
+
+```
+
+##
+### **Comparación de modelos logit**
+
+##
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+G4 <- ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black") +
+  stat_smooth(method = 'lm', formula = y ~ poly(x, 1), aes(colour = 'Lineal'), se = FALSE) +
+  stat_smooth(method = 'glm', formula = y ~ poly(x, 2), aes(colour = 'Grado 2'), se = FALSE) +
+  stat_smooth(method = 'glm', formula = y ~ poly(x, 3), aes(colour = 'Grado 3'), se = FALSE) +
+  stat_smooth(method = 'glm', formula = y ~ poly(x, 4), aes(colour = 'Grado 4'), se = FALSE)
+```
+
+<center>
+```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+ggplotly(G4)
+```
+
+
 
 # Bibliografía
 ##
