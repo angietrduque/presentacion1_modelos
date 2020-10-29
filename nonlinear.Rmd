@@ -20,6 +20,9 @@ suppressMessages(library(nlme))
 suppressMessages(library(ggplot2))
 suppressMessages(library(plotly))
 suppressMessages(library(reshape2))
+suppressMessages(library(plotly))
+suppressMessages(library(psych))
+suppressMessages(library(GGally))
 
 ```
 
@@ -210,7 +213,7 @@ G2 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black") 
 ```
 
 ```{r fig.height=4, fig.width=8, message=F, warning=FALSE, include=T, paged.print=FALSE}
-G2
+ggplotly(G2)
 ```
 
 
@@ -281,12 +284,12 @@ El ANOVA muestra claras evidencias de que incluir el término cuadrático mejora
 ```{r warning=FALSE, include=F, paged.print=F}
 library(ggplot2)
 G3 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
-    geom_point(colour = "grey") +
+    geom_point(colour = "black") +
     stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se=F) 
 ```
 
 ```{r warning=FALSE, include=T, paged.print=F}
-G3
+ggplotly(G3)
 ```
 
 
@@ -299,11 +302,13 @@ G3
 G4 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
   geom_point(colour = "black") +
   stat_smooth(method = "lm", formula = y ~ poly(x, 1), colour = "blue", se = FALSE) +
-  stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se = FALSE)
+  stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se = FALSE) +
+  stat_smooth(method = "lm", formula = y ~ poly(x, 5), colour = "green", se = FALSE) +
+  stat_smooth(method = "lm", formula = y ~ poly(x, 10), colour = "yellow", se = FALSE)
 ```
 
 ```{r warning=FALSE, include=T, paged.print=F}
-G4
+ggplotly(G4)
 ```
 <div>
 
