@@ -31,11 +31,17 @@ suppressMessages(library(reshape2))
 
 Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
 
-### **Regresión lineal simple**
+**Regresión lineal simple:** Consiste en generar un modelo de regresión (ecuación de una recta) que permita explicar la relación lineal que existe entre dos variables. 
 
 $$Y=\beta_{0}+\beta_{1}X_{1}+\epsilon$$
 
-### **Regresión lineal múltiple**
+* $\beta_{0}:$ La ordenada en el origen.
+
+* $\beta_{1}:$ La pendiente.
+
+* $\epsilon:$ El error aleatorio.
+
+**Regresión lineal múltiple:** Es una extensión de la regresión lineal simple. Permite generar un modelo lineal en el que el valor de la variable dependiente o respuesta $(Y)$ se determina a partir de un conjunto de variables independientes llamadas predictores $(X_{1}, X_{2}, X_{3},...)$. 
 
 $$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}$$
 
@@ -68,7 +74,7 @@ Antes de aplicar un modelo de regresión lineal simple, se hace necesario conoce
 
 Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
 
-### **Regresión polinómica**
+**Regresión polinómica:** Incorporan flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
 
 $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
 

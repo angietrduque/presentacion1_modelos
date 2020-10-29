@@ -3133,11 +3133,17 @@ slide:not(.current) .plotly.html-widget{
 
 <p>Hasta ahora solo hemos considerado asociaciones lineales entre X e Y, donde un aumento de delta en una variable explicativa continua \(x_{i}\) produce el mismo cambio \(\beta_{1}\) en y para todos los valores de \(x_{i}\). \(\beta_{1}\) a veces se denomina <strong>&ldquo;Slope&rdquo;</strong> porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:</p>
 
-<h3><strong>Regresión lineal simple</strong></h3>
+<p><strong>Regresión lineal simple:</strong> Consiste en generar un modelo de regresión (ecuación de una recta) que permita explicar la relación lineal que existe entre dos variables.</p>
 
 <p>\[Y=\beta_{0}+\beta_{1}X_{1}+\epsilon\]</p>
 
-<h3><strong>Regresión lineal múltiple</strong></h3>
+<ul>
+<li><p>\(\beta_{0}:\) La ordenada en el origen.</p></li>
+<li><p>\(\beta_{1}:\) La pendiente.</p></li>
+<li><p>\(\epsilon:\) El error aleatorio.</p></li>
+</ul>
+
+<p><strong>Regresión lineal múltiple:</strong> Es una extensión de la regresión lineal simple. Permite generar un modelo lineal en el que el valor de la variable dependiente o respuesta \((Y)\) se determina a partir de un conjunto de variables independientes llamadas predictores \((X_{1}, X_{2}, X_{3},...)\).</p>
 
 <p>\[Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}\]</p>
 
@@ -3175,7 +3181,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro \(\beta\) adicional:</p>
 
-<h3><strong>Regresión polinómica</strong></h3>
+<p><strong>Regresión polinómica:</strong> Incorporan flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.</p>
 
 <p>\[y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}\]</p>
 
