@@ -262,13 +262,15 @@ p4
 # Ejemplo 2. Regresión polinómica logística
 
 ## 
-### **Se genera la variable categorica**
+### **Se genera la variable categórica**
 Se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para ajustar el modelo.
 
 ```{r echo=TRUE, message=TRUE, warning=TRUE}
 Wage$wage_superior250 <- I(Wage$wage > 250)
+table(Wage$wage_superior250)
 ```
 
+Donde aquellas personas que cumplan con tener un salario mayor a $250000 dólares serán clasificados como "True" y los que no como "False". 
 
 ## 
 ### **Ajuste del modelo logistico**
@@ -284,8 +286,31 @@ modelo_logit2 <- glm(wage_superior250  ~ poly(age, 4), family = "binomial", data
 
 ```
 
+# Comparación de modelos logit
+
 ##
-### **Comparación de modelos logit**
+### **Regresión polinómica logística grado 2**
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+
+anova(modelo_logit)
+
+```
+
+##
+### **Regresión polinómica logística grado 3**
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+
+anova(modelo_logit1)
+
+```
+
+##
+### **Regresión polinómica logística grado 4**
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+
+anova(modelo_logit2)
+
+```
 
 ##
 
@@ -298,7 +323,7 @@ G4 <- ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black") +
 ```
 
 <center>
-```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+```{r fig.height=4, fig.width=9, message=TRUE, include=T, warning=TRUE}
 ggplotly(G4)
 ```
 
