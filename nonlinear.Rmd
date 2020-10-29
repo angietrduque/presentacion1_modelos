@@ -130,26 +130,6 @@ $$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon
 
 <div>
 
-##
-<div style="text-align: justify">
-
-### **Centramiento de las variables**
-
-En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
-
-$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
-
-
-### **Ventajas**
-
-* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
-
-* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
-
-* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
-
-<div/>
-
 # Regresión polinómica
 
 ##
@@ -157,18 +137,48 @@ $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 
 Antes de aplicar un modelo de regresión lineal simple, se hace necesario conocer si los datos se pueden ajustar a un modelo de regresión lineal, es decir conocer el grado de asociación entre la variable de respuesta y las variables predictoras y a su vez poder determinar la proporción de variabilidad existente entre la variable dependiente explicada por la variable independiente. 
 
-Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+**Regresión polinómica** 
 
-**Regresión polinómica:** Incorporan flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
+La Regresión Polinomial permite describir relaciones no lineales, La forma más sencilla de hacerlo es incorporar flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
+
+Partiendo del modelo lineal:
+
+$$y_{i}=\beta_{0}+\beta_{1}x_{i}+\epsilon_{i}$$
+
+Se obtiene un modelo polinómico de grado $d$ a partir de la ecuación:
 
 $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
+<div>
+
+##
+<div style="text-align: justify">
+
+### **Centramiento de las variables**
+
+Una asociación en forma de $U$ se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+
+$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i} \hspace{2cm} i=1, ...,N.$$
+
+En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil **centrar** las variables explicativas utilizando su media $(\bar{x})$ y **escalar** utilizando su desviación estándar $(sd)$:
+
+$$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 
 Y se ajusta al modelo:
 
-$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
+$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i} \hspace{2cm} i=1, ...,N.$$
 
-<div>
+##
+<div style="text-align: justify">
 
+### **Ventajas**
+
+* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de $\bar{y}$ con el valor de $\bar{x}$ en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
+
+* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
+
+* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
+
+<div/>
 # Modelos lineales generalizados (GLM)
 ##
 <div style="text-align: justify">
@@ -182,9 +192,9 @@ Por esta misma razón, las funciones polinómicas pueden emplearse en regresión
 
 $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}{1+exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}}$$
 
-**Recomendaciones**
+**Recomendaciones:**
 
-* En el libro Introduction to Statistical Learning no aconsejan el uso de modelos polinómicos con grado mayor de 3 o 4 debido a un exceso de flexibilidad (overfitting), principalmente en los extremos del predictor X. 
+* No se aconseja el uso de modelos polinómicos con grado mayor de 3 o 4 debido a un exceso de flexibilidad (overfitting), principalmente en los extremos del predictor $X$. 
 
 * La selección del grado de polinomio óptimo puede hacerse mediante cross validation.
 
@@ -264,6 +274,9 @@ p4 <- ggplot(data = data.frame(polinomio = 1:10, cv_MSE = cv_MSE_k10),
 
 
 ##
+
+### **Validación cruzada**
+
 <center>
 ```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
 p4
