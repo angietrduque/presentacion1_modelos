@@ -172,9 +172,20 @@ Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la 
 Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible *(mpg)* en función de la potencia del motor *(horsepower)*.
 
 <center>
-```{r warning=FALSE, include=F, paged.print=F}
+
+```{r warning=FALSE, include=T, paged.print=TRUE}
 library(ISLR)
 attach(Auto)
+
+# Variable dicotomica calidadAB
+hp <- vector()
+hp[Auto$horsepower <= 150] <- "bajo"
+hp[Auto$horsepower > 150] <- "alto"
+hp <- as.factor(hp)
+```
+
+
+```{r warning=FALSE, include=F, paged.print=F}
 G1 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black")
 ```
 
@@ -192,12 +203,12 @@ La representación gráfica de los datos muestra una fuerte asociación entre el
 <div style="text-align: justify">
 ```{r message=F, warning=F, include=T, paged.print=FALSE}
 attach(Auto)
-modelo_lineal <- lm(formula = mpg ~ horsepower, data = Auto)
+modelo_1 <- glm(formula = mpg ~ hp, data = Auto, family = "binomial")
 ```
 <div>
 
 ```{r warning=F, include=T, paged.print=F}
-summary(modelo_lineal)
+summary(modelo_1)
 ```
 
 
@@ -299,15 +310,15 @@ ggplotly(G3)
 
 <center>
 ```{r warning=FALSE, include=F, paged.print=F}
-G4 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
-  geom_point(colour = "black") +
-  stat_smooth(method = "lm", formula = y ~ poly(x, 1), colour = "blue", se = FALSE) +
-  stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se = FALSE) +
-  stat_smooth(method = "lm", formula = y ~ poly(x, 5), colour = "green", se = FALSE) +
-  stat_smooth(method = "lm", formula = y ~ poly(x, 10), colour = "yellow", se = FALSE)
+G4 <- ggplot(Auto, aes(x = horsepower, y = mpg)) + geom_point(colour = "black") +
+  stat_smooth(method = 'lm', formula = y ~ poly(x, 1), aes(colour = 'Lineal'), se = FALSE) +
+  stat_smooth(method = 'lm', formula = y ~ poly(x, 2), aes(colour = 'polynomial grado 2'), se= FALSE) +
+  stat_smooth(method = 'lm', formula = y ~ poly(x, 5), aes(colour = 'polynomial grado 5'), se = FALSE) +
+  stat_smooth(method = 'lm', formula = y ~ poly(x, 10), aes(colour = 'polynomial grado 10'), se = FALSE)
+  
 ```
 
-```{r warning=FALSE, include=T, paged.print=F}
+```{r fig.height=6, fig.width=9, warning=FALSE, include=T, paged.print=F}
 ggplotly(G4)
 ```
 <div>
