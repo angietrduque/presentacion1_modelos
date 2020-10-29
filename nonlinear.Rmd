@@ -283,7 +283,7 @@ table(Wage$wage_superior250)
 Donde aquellas personas que cumplan con tener un salario mayor a $250000 dólares serán clasificados como "True" y los que no como "False". 
 
 ## 
-### **Ajuste del modelo logistico**
+### **Ajuste del modelo logístico**
 
 Se ajustan tres modelos Logit, esto teniendo en cuenta el resultado obtenido mediante validacion cruzada que arrojo que el polinomio con mejor ajuste es el de grado 3.
 
