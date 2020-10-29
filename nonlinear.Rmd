@@ -296,6 +296,19 @@ modelo_logit2 <- glm(wage_superior250  ~ poly(age, 4), family = "binomial", data
 
 ```
 
+## 
+<div style="text-align: justify">
+
+### **Ajuste del modelo logístico**
+
+Al emplear la función predict() con un modelo logístico, es importante tener en cuenta que por defecto se devuelve el logaritmo de ODDs (Log_ODDs). Para transformarlos en probabilidad se invierte la función logística:
+
+$$P\left(Y=1|X= \displaystyle\frac{e^{LogODDs}}{1+e^{LogODDs}} \right)$$
+
+Es posible obtener directamente la probabilidad de las predicciones seleccionando el argumento type = "response". 
+
+A pesar de que esta forma es más directa, si junto al valor predicho se quiere obtener su intervalo de confianza y que este caiga dentro de [0, 1], se tienen que realizar los cálculos con los Log ODDs para finalmente transformarlos a probabilidad.
+
 # Comparación de modelos logit
 
 ##
