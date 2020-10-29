@@ -133,7 +133,7 @@ Se utiliza para estudiar la asociación entre un factor de estudio y una variabl
 + **Población:**
 
 $$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
-- **Muestra:**
++ **Muestra:**
 
 $$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
 
@@ -290,6 +290,21 @@ G3
 ```
 
 
+<div>
+
+## 
+
+<center>
+```{r warning=FALSE, include=F, paged.print=F}
+G4 <- ggplot(Auto, aes(x = horsepower, y = mpg)) +
+  geom_point(colour = "black") +
+  stat_smooth(method = "lm", formula = y ~ poly(x, 1), colour = "blue", se = FALSE) +
+  stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red", se = FALSE)
+```
+
+```{r warning=FALSE, include=T, paged.print=F}
+G4
+```
 <div>
 
 ##
