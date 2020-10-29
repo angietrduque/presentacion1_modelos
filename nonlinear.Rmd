@@ -67,6 +67,8 @@ $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
 
 <div/>
 
+# Regresión polinómica
+
 ##
 <div style="text-align: justify">
 
@@ -234,7 +236,7 @@ $$modelo\_pol2 \leftarrow lm(formula = mpg \sim horsepower + I(horsepower^{2}), 
 
 $$lm(formula = mpg \sim poly(horsepower, 2), data = Auto)$$
 
-## **Modelo Polinomico**
+## **Modelo Polinómico**
 
 ```{r warning=FALSE, include=T, paged.print=F}
 modelo_cuadratico <- lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
@@ -297,18 +299,18 @@ G3
 
 + La elección del grado del polinomio influye directamente en la flexibilidad del modelo. 
 
-    - Cuanto mayor es el grado del polinomio más se ajusta el modelo a las observaciones, un polinomio de grado $n\circ observaciones-1$ pasa por todos los puntos. 
+    - Cuanto mayor es el grado del polinomio más se ajusta el modelo a las observaciones, un polinomio de grado $n^{\circ} observaciones-1$ pasa por todos los puntos. 
     - Por lo tanto, es importante no excederse en el grado del polinomio para no causar problemas de overfitting (no suele recomendarse ir más allá de grado 3-4). 
 
 + Existen varias estrategias para identificar el grado óptimo del polinomio:
 
     - Incrementar secuencialmente el orden del polinomio hasta que la nueva incorporación no sea significativa.
 
-    - Iniciar el proceso con un polinomio de grado alto e ir eliminando secuencialmente, de mayor a menor, los términos no significativos.
+    - Iniciar el proceso con un polinomio de grado alto e ir eliminando secuencialmente, de mayor a menor los términos no significativos.
 
-    - Emplear un ANOVA para comparar cada nuevo modelo con el de orden inferior y determinar si la mejora es significativa. Este proceso es equivalente al primero. Ver ejemplo en Regresión Polinomial: incorporar no-linealidad a los modelos lineales.
+    - Emplear un ANOVA para comparar cada nuevo modelo con el de orden inferior y determinar si la mejora es significativa.
 
-    - Emplear cross-validation. En el capítulo Validación de modelos de regresión: Cross-validation, OneLeaveOut, Bootstrap se explica cómo emplear la validación-cruzada para identificar el grado adecuado.
+    - Emplear cross-validation.
 
 <div>
 
