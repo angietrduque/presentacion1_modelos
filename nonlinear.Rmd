@@ -200,21 +200,37 @@ $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\be
 
 <div>
 
-# Modelos GAM
+# Modelos Aditivos Generalizados (GAM)
+
 ##
-### **Problemas de regresiòn**
+
+<div style="text-align: justify">
+
+### **Problemas de regresión**
+
 Una forma natural de extender el modelo de regresión lineal múltiple para permitir relaciones no lineales entre cada característica y la respuesta es reemplazar cada componente lineal $\beta_jx_{ij}$ con una función no lineal (suave) $f_j(x_{ij})$. Lo que darìa como resultado el siguiente modelo
 
 $$ y_{i} = \beta_0 + \sum_{i=1}^{n} f_j(x_{ij}) + \epsilon $$
 
 $$ = \beta_{0} + f_{1}(x_{i1})+ f_{2}(x_{i2})+....++ f_{p}(x_{ip})$$
 
-El cual seria un modelo aditivo GAM en el cual calculamos una $f_j$ separada para cada $X_j$ y luego sumamos todas sus contribuciones.
-
-Los GAM también se pueden utilizar en situaciones en las que Y es cualitativo.
+Se denomina modelo aditivo GAM porque calculamos una $f_j$ para cada $X_j$ y luego sumamos todas sus contribuciones.
 
 ##
-### **Cualidades del modelo GAM**
+<div style="text-align: justify">
+
+### **Problemas de clasificación**
+
+Los modelos GAM también se pueden usar en situaciones donde Y es una variable cualitativa. A partir del modelo logístico:
+
+
+$$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+\beta_1X_1+\beta_2X_2+...+\beta_pX_p$$
+podemos recordar que la transformación logit corresponde al logaritmo de odds de $P(Y = 1 | X)$ versus $P(Y = 0 | X)$. Incorporando funciones no lineales $f_p(x_p)$ entre variables obtenemos el modelo el modelo de regresión logística GAM.
+
+$$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+f_1(X_1)+f_2(X_2)+...+f_p(X_p)$$
+
+##
+### **Caracter del modelo GAM**
 
 + Los GAM nos permiten ajustar un $f_j$ no lineal a cada $X_j$, de modo que podamos modelar automáticamente relaciones no lineales que la regresión lineal estándar perderá. Esto significa que no necesitamos probar manualmente muchas transformaciones diferentes en cada variable individualmente.
 
