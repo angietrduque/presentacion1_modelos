@@ -153,7 +153,7 @@ $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta
 ##
 <div style="text-align: justify">
 
-### **Centramiento de las variables**
+### **Recomendación: Estandarizar las variables**
 
 Una asociación en forma de $U$ se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
 
