@@ -200,6 +200,33 @@ $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\be
 
 <div>
 
+# Modelos GAM
+##
+### **Problemas de regresiòn**
+Una forma natural de extender el modelo de regresión lineal múltiple para permitir relaciones no lineales entre cada característica y la respuesta es reemplazar cada componente lineal $\beta_jx_{ij}$ con una función no lineal (suave) $f_j(x_{ij})$. Lo que darìa como resultado el siguiente modelo
+
+$$ y_{i} = \beta_0 + \sum_{i=1}^{n} f_j(x_{ij}) + \epsilon $$
+
+$$ = \beta_{0} + f_{1}(x_{i1})+ f_{2}(x_{i2})+....++ f_{p}(x_{ip})$$
+
+El cual seria un modelo aditivo GAM en el cual calculamos una $f_j$ separada para cada $X_j$ y luego sumamos todas sus contribuciones.
+
+Los GAM también se pueden utilizar en situaciones en las que Y es cualitativo.
+
+##
+### **Cualidades del modelo GAM**
+
++ Los GAM nos permiten ajustar un $f_j$ no lineal a cada $X_j$, de modo que podamos modelar automáticamente relaciones no lineales que la regresión lineal estándar perderá. Esto significa que no necesitamos probar manualmente muchas transformaciones diferentes en cada variable individualmente.
+
++ Los ajustes no lineales pueden potencialmente hacer predicciones más precisas para la respuesta Y.
+
++ Debido a que el modelo es aditivo, aún podemos examinar el efecto de cada $X_j$ en Y individualmente mientras se mantienen fijas todas las demás variables. Por lo tanto, si estamos interesados en la inferencia, los GAM proporcionan una representación útil.
+
++ La suavidad de la función $f_j$ para la variable $X_j$ se puede resumir mediante grados de libertad.
+
+- La principal limitación de los GAM es que el modelo está restringido a ser aditivo.
+
+
 # Ejemplo en R
 ##
 <div style="text-align: justify">
