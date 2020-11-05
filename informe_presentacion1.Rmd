@@ -76,7 +76,7 @@ $$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon
 
 # Regresión polinómica
 
-La Regresión Polinomial permite describir relaciones no lineales, La forma más sencilla de hacerlo es incorporar flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
+La Regresión Polinomial permite describir relaciones no lineales, la forma más sencilla de hacerlo es incorporando flexibilidad a un modelo lineal al introducir nuevos predictores obtenidos al elevar a distintas potencias el predictor original. 
 
 Partiendo del modelo lineal:
 
@@ -85,7 +85,9 @@ $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\epsilon_{i}$$
 Se obtiene un modelo polinómico de grado $d$ a partir de la ecuación:
 
 $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
+
 ## Estandarizacion de las variables:
+
 Una asociación en forma de $U$ se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
 
 $$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i} \hspace{2cm} i=1, ...,N.$$
@@ -100,9 +102,9 @@ $$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i} \hspace{2
 
 # Modelos lineales generalizados (GLM)
 
-Los modelos polinómicos se pueden ajustar mediante regresión lineal por mínimos cuadrados ya que, aunque generan modelos no lineales, su ecuación no deja de ser una ecuación lineal con predictores $x, x_2, x_3, ..., x_d$. 
+Los modelos polinómicos tratados anteriormente se pueden ajustar mediante regresión lineal por mínimos cuadrados ya que, aunque generan modelos no lineales, su ecuación no deja de ser una ecuación lineal con predictores $x, x_2, x_3, ..., x_d$. 
 
-Por esta misma razón, las funciones polinómicas pueden emplearse en regresión logística para predecir respuestas binarias. Solo es necesario realizar una transformación logit.
+Por tal motivo, las funciones polinómicas se pueden emplear en regresión logística con el fin de predecir respuestas binarias. Siendo unicamente necesario realizar una transformación logit.
 
 
 $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}{1+exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}}$$
@@ -111,7 +113,7 @@ $$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\be
 
 # Modelos Aditivos Generalizados (GAM)
 
-Una forma natural de extender el modelo de regresión lineal múltiple para permitir relaciones no lineales entre cada característica y la respuesta es reemplazar cada componente lineal $\beta_jx_{ij}$ con una función no lineal (suave) $f_j(x_{ij})$. Lo que darìa como resultado el siguiente modelo
+Una forma natural de extender el modelo de regresión lineal múltiple para permitir relaciones no lineales entre cada característica y la respuesta es reemplazar cada componente lineal $\beta_jx_{ij}$ con una función no lineal (suave) $f_j(x_{ij})$. Lo que daría como resultado el siguiente modelo:
 
 $$ y_{i} = \beta_0 + \sum_{i=1}^{n} f_j(x_{ij}) + \epsilon $$
 
@@ -138,7 +140,7 @@ $$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+f_1(X_1)+f_2(X_2)+...
 
 # Ejemplo de aplicación
 
-El set de datos *Wage* del paquete ISRL contiene información sobre 3000 trabajadores. Entre las 12 variables registradas se encuentra el salario (wage) y la edad (age). Dada la relación no lineal existente entre estas dos variables, se recurre a un modelo polinómico de grado 4 que permita predecir el salario en función de la edad.
+En esta sección se hará uso de un ejemplo de aplicación abordado *en James et al. (2013)*. El set de datos se denomina *Wage* y pertenece al paquete ISRL, el cual contiene información sobre 3000 trabajadores. Entre las 12 variables registradas se encuentra el salario (wage) y la edad (age). Dada la relación no lineal existente entre estas dos variables, se recurre a un modelo polinómico de grado 4 que permita predecir el salario en función de la edad.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
 suppressMessages(library(ISLR))
@@ -147,7 +149,8 @@ suppressMessages(library(plotly))
 data("Wage")
 ```
 
-Inicialmente se realiza la representación gráfica de los datos a los cuales se desea ajustar el modelo, en la figura se observa como el ajuste de un modelo lineal simple no es la mejor opción, para lo cual se recurre a un modelo lineal generalizado para asociaciones no lineales con una variable de respuesta binaria como se presentara a continuación. 
+Como primera medida se realiza la representación gráfica de los datos a los cuales se desea ajustar el modelo. En la figura, es posible observar como el ajuste de un modelo lineal simple no resulta ser la mejor opción. De acuerdo a lo anterior, se recurre a un modelo lineal generalizado para asociaciones no lineales con una variable de respuesta binaria, tal como sigue:
+
 <center>
 ```{r fig.height=3, fig.width=6.2, message=TRUE, include=T, warning=TRUE}
 ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
@@ -155,7 +158,8 @@ ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
 
 ## Validación cruzada
 
-Mediante cross-validation se identifica con que polinomio se consigue el mejor modelo. El proceso consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). El mejor modelo es aquel a partir del cual ya no hay una reducción sustancial del test error, esto se evidencia a partir del polinomio de grado 4 tal y como se presenta en la figura donde se observa como se estabiliza el error cuadratico medio.
+Mediante cross-validation se identifica con qué polinomio se obtiene el mejor modelo. El procedimiento a seguir consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). De tal manera que el mejor modelo será aquel a partir del cual ya no se presenta una reducción significativa del test error. En nuestro ejemplo de aplicación, esto se evidencia a partir del polinomio de grado 4,como se muestra a continuación: 
+
 
 ```{r echo=F, message=TRUE, warning=TRUE, paged.print=FALSE}
 cv_MSE_k10 <- rep(NA,10)
@@ -177,7 +181,7 @@ p4
 
 ## Variable binaria
 
-Posteriormente se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para de esta forma ajustar el modelo con respuesta binaria.
+Posteriormente, se realiza la creación de una variable binaria para aquellos salarios > 250000 dólares para de esta forma ajustar el modelo con respuesta binaria.
 
 ```{r echo=TRUE, message=TRUE, warning=TRUE}
 Wage$wage_superior250 <- I(Wage$wage > 250)
@@ -186,7 +190,7 @@ table(Wage$wage_superior250)
 
 Donde aquellas personas que cumplan con tener un salario mayor a $250000 dólares serán clasificados como "True" y los que no como "False". 
 
-Se ajustan tres modelos Logit, esto teniendo en cuenta el resultado obtenido mediante validacion cruzada que arrojo que el polinomio con mejor ajuste es el de grado 3.
+Seguidamente, se ajustan tres modelos Logit, esto teniendo en cuenta el resultado obtenido mediante validacion cruzada, el cual arrojó como polinomio con mejor ajuste el de grado 3.
 
 ```{r echo=TRUE, message=TRUE, warning=TRUE}
 modelo_logit <- glm(wage_superior250  ~ poly(age, 2), family = "binomial", data = Wage)
@@ -200,13 +204,13 @@ modelo_logit2 <- glm(wage_superior250  ~ poly(age, 4), family = "binomial", data
 
 ## Ajuste del modelo logístico
 
-Al emplear la función predict() con un modelo logístico, es importante tener en cuenta que por defecto se devuelve el logaritmo de ODDs (Log_ODDs). Para transformarlos en probabilidad se invierte la función logística:
+Cuando se hace uso de la función predict() en un modelo logístico, es importante tener en cuenta que por defecto se entrega el logaritmo de ODDs $(Log_{ODDs})$. Por lo que para realizar la transformación en términos de probabilidad es necesario invertir la función logística así:
 
 $$P\left(Y=1|X= \displaystyle\frac{e^{LogODDs}}{1+e^{LogODDs}} \right)$$
 
-Es posible obtener directamente la probabilidad de las predicciones seleccionando el argumento type = "response". 
+Por otro lado, es posible obtener de manera directa la probabilidad de las predicciones al seleccionar el argumento type = "response". 
 
-A pesar de que esta forma es más directa, si junto al valor predicho se quiere obtener su intervalo de confianza y que este caiga dentro de [0, 1], se tienen que realizar los cálculos con los Log ODDs para finalmente transformarlos a probabilidad.
+Pese a que esta forma es más directa, si junto al valor predicho se quiere obtener su intervalo de confianza y que este caiga dentro de $[0, 1]$, se deben realizar los cálculos con los $Log ODDs$ para luego transformarlos a probabilidad.
 
 ## Comparación de modelos logit 
 
