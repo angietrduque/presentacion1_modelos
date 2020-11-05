@@ -10,16 +10,17 @@ output:
 
 # Introducción
 
-La correlación lineal y la regresión lineal simple son métodos estadísticos que estudian la relación lineal existente entre dos variables.
+Para comprender las asociaciones no lineales resulta necesario retomar los conceptos de correlación y de regresión lineal simple, los cuales corresponden a métodos estadísticos que estudian la relación lineal existente entre dos variables. De esta manera, es posible identificar diferencias entre si:
 
-+ La correlación cuantifica como de relacionadas están dos variables, mientras que la regresión lineal genera un modelo, el cual se basa de la relación existente entre ambas variables, para predecir el valor de una a partir de la otra.
++ En primer lugar, la correlación cuantifica qué tan relacionadas se encuentran dos variables, mientras que la regresión lineal se encargar de generar un modelo basado en la relación existente entre ambas variables con el objetivo de predecir el valor de una a partir de la otra.
 
-- El cálculo de la correlación entre dos variables mide únicamente la relación entre ambas sin considerar dependencias. En el caso de la regresión lineal, el modelo varía según qué variable se considere dependiente de la otra.
+- El cálculo de la correlación entre dos variables mide tan solo la relación entre ambas sin considerar dependencias. Por otro lado, en el caso de la regresión lineal, el modelo varía según qué variable se considere dependiente de la otra.
 
-+ Primero se analiza si ambas variables están correlacionadas y, en caso de estarlo, se procede a generar el modelo de regresión.
++ Finalmente, se debe tener en cuenta que primero se analiza si ambas variables están correlacionadas y, en caso de estarlo, se procede a generar el modelo de regresión.
 
 # Correlación lineal
-Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
+
+La correlación lineal analiza como su nombre lo indica la relación lineal existente entre dos variables continuas. Para ello, es necesario contar con determinados parámetros que permitirán cuantificar dicha relación. Entre ellos se tiene: La covarianza, que indica el grado de variación conjunta de dos variables aleatorias, su expresión está dada por:
 
 $$Covarianza \hspace{0.2cm} muestral=Cov(X,Y)= \frac{\displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
 Donde:
@@ -29,11 +30,12 @@ Donde:
 + $x_i$ e $y_i:$ Son el valor de las variables para la observación $i$.
 
 ## Coeficiente de correlación de Pearson:
-Se utiliza para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa, mide el grado de asociación entre dos variables tomando valores entre $-1$ y $1$.
 
-+ Población 
+Se emplea para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa. Así, mide el grado de asociación entre dos variables tomando rango de valores entre $-1$ y $1$. 
+
++ **Población:**
 $$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
-+ Muestra
++ **Muestra:**
 $$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
 
 ## Coeficiente de correlación de Spearman:
@@ -46,7 +48,7 @@ $$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
 
 Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
 
-Las principales diferencias entre estos tres coeficientes de asociación son:
+Después de exponer los tres coeficientes de asociación es importante identificar las principales diferencias entre ellos, estas son:
 
 + La correlación de Pearson funciona bien con variables cuantitativas que tienen una distribución normal. Es más sensible a los valores extremos que las otras dos alternativas.
 
@@ -184,8 +186,16 @@ Es posible obtener directamente la probabilidad de las predicciones seleccionand
 
 A pesar de que esta forma es más directa, si junto al valor predicho se quiere obtener su intervalo de confianza y que este caiga dentro de [0, 1], se tienen que realizar los cálculos con los Log ODDs para finalmente transformarlos a probabilidad.
 
-Comparación de los modelos logit con la variable binaria salario
+## Comparación de modelos logit 
 
+<table>
+| Grado (p) 	| Df 	| Deviance 	| Resid. Df 	| Resid. Dev 	|
+|:---------:	|:--:	|:--------:	|:---------:	|:----------:	|
+|    Nulo   	|    	|          	|    2999   	|   730.53   	|
+|     2     	|  2 	|  21.511  	|    2997   	|   709.02   	|
+|     3     	|  3 	|  22.613  	|    2996   	|   707.92   	|
+|     4     	|  4 	|  29.315  	|    2995   	|   701.22   	|
+<table>
 
 # Bibliografía
 ##
