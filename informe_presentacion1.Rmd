@@ -74,7 +74,7 @@ $(X_{1}, X_{2}, X_{3},...)$
 
 $$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}$$
 
-# Regresión polinómica: 
+# Regresión polinómica
 
 La Regresión Polinomial permite describir relaciones no lineales, La forma más sencilla de hacerlo es incorporar flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
 
@@ -147,15 +147,37 @@ suppressMessages(library(plotly))
 data("Wage")
 ```
 
-Representación gráfica:
+Inicialmente se realiza la representación gráfica de los datos a los cuales se desea ajustar el modelo, en la figura se observa como el ajuste de un modelo lineal simple no es la mejor opción, para lo cual se recurre a un modelo lineal generalizado para asociaciones no lineales con una variable de respuesta binaria como se presentara a continuación. 
 <center>
-```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+```{r fig.height=3, fig.width=6.2, message=TRUE, include=T, warning=TRUE}
 ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
 ```
 
-Mediante cross-validation se identifica con que polinomio se consigue el mejor modelo. El proceso consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). El mejor modelo es aquel a partir del cual ya no hay una reducción sustancial del test error.
+## Validación cruzada
 
-Se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para ajustar el modelo.
+Mediante cross-validation se identifica con que polinomio se consigue el mejor modelo. El proceso consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). El mejor modelo es aquel a partir del cual ya no hay una reducción sustancial del test error, esto se evidencia a partir del polinomio de grado 4 tal y como se presenta en la figura donde se observa como se estabiliza el error cuadratico medio.
+
+```{r echo=F, message=TRUE, warning=TRUE, paged.print=FALSE}
+cv_MSE_k10 <- rep(NA,10)
+
+for (i in 1:10) {
+  modelo <- glm(wage ~ poly(age, i), data = Wage)
+  set.seed(17)
+  cv_MSE_k10[i] <- cv.glm(data = Wage, glmfit = modelo, K = 10)$delta[1]
+}
+p4 <- ggplot(data = data.frame(polinomio = 1:10, cv_MSE = cv_MSE_k10),
+             aes(x = polinomio, y = cv_MSE)) +
+      geom_point(colour = c("firebrick3")) +
+      geom_path()
+```
+
+```{r fig.height=3, fig.width=6.2, message=TRUE, include=T, warning=TRUE}
+p4
+```
+
+## Variable binaria
+
+Posteriormente se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para de esta forma ajustar el modelo con respuesta binaria.
 
 ```{r echo=TRUE, message=TRUE, warning=TRUE}
 Wage$wage_superior250 <- I(Wage$wage > 250)
@@ -197,8 +219,9 @@ A pesar de que esta forma es más directa, si junto al valor predicho se quiere 
 |     4     	|  4 	|  29.315  	|    2995   	|   701.22   	|
 <table>
 
+Es posible observar como en la tabla anterior se muestran los resultados obtenidos para los distintos modelos ajustados, esto es, modelos de grado 1, 2, 3 y 4 para los cuales se calcula la devianza, la cual es la encargada de explicar la varianza de cada uno de los modelos ajustados. Teniendo en cuenta lo anteriormente mencionado se tiene que a medida que se incrementa el grado del polinomio, el ajuste que se realiza a los datos es mayor y por lo tanto se tiene una mayor explicación de la varianza, mediante la validación cruzada se obtuvo que el grado 4 seria el grado de polinomio que mejor ajuste los datos y esto se evidencia en que este es quien logra la devianza mas alta, esto es, $29.31\%$ de la variabilidad total de los datos, lo cual indica que se tiene un porcentaje de explicación alto para los datos esto en comparación a si se ajustara un modelo lineal simple. 
+
 # Bibliografía
-##
 
 * Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
 
