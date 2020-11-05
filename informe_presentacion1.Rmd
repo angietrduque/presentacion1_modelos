@@ -80,6 +80,7 @@ La Regresión Polinomial permite describir relaciones no lineales, la forma más
 
 Partiendo del modelo lineal:
 
+
 $$y_{i}=\beta_{0}+\beta_{1}x_{i}+\epsilon_{i}$$
 
 Se obtiene un modelo polinómico de grado $d$ a partir de la ecuación:
