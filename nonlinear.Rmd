@@ -230,7 +230,7 @@ podemos recordar que la transformación logit corresponde al logaritmo de odds d
 $$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+f_1(X_1)+f_2(X_2)+...+f_p(X_p)$$
 
 ##
-### **Caracter del modelo GAM**
+### **Caracteristicas del modelo GAM**
 
 + Los GAM nos permiten ajustar un $f_j$ no lineal a cada $X_j$, de modo que podamos modelar automáticamente relaciones no lineales que la regresión lineal estándar perderá. Esto significa que no necesitamos probar manualmente muchas transformaciones diferentes en cada variable individualmente.
 

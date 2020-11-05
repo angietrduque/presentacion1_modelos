@@ -9,71 +9,189 @@ output:
 ---
 
 # Introducción
-##
 
-# Definición
-##
-<div style="text-align: justify">
+La correlación lineal y la regresión lineal simple son métodos estadísticos que estudian la relación lineal existente entre dos variables.
 
-Hasta ahora solo hemos considerado asociaciones lineales entre X e y, donde un aumento de delta en una variable explicativa continua $x_{i}$ produce el mismo cambio $\beta_{1}$ en y para todos los valores de $x_{i}$. $\beta_{1}$ a veces se denomina **"Slope"** porque es un gradiente lineal. Una ecuación de regresión lineal simple con una sola pendiente lineal es:
++ La correlación cuantifica como de relacionadas están dos variables, mientras que la regresión lineal genera un modelo, el cual se basa de la relación existente entre ambas variables, para predecir el valor de una a partir de la otra.
 
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}; \hspace{2cm} i=1,...,N. $$
-Una asociación en forma de U se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+- El cálculo de la correlación entre dos variables mide únicamente la relación entre ambas sin considerar dependencias. En el caso de la regresión lineal, el modelo varía según qué variable se considere dependiente de la otra.
 
-$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}; \hspace{2cm} i=1,...,N. $$
++ Primero se analiza si ambas variables están correlacionadas y, en caso de estarlo, se procede a generar el modelo de regresión.
 
-<div/>
+# Correlación lineal
+Para estudiar la relación lineal existente entre dos variables continuas es necesario disponer de parámetros que permitan cuantificar dicha relación. Uno de estos parámetros es la covarianza, que indica el grado de variación conjunta de dos variables aleatorias.
 
-## Centrar y escalar
-##
-<div style="text-align: justify">
+$$Covarianza \hspace{0.2cm} muestral=Cov(X,Y)= \frac{\displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+Donde:
 
-En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de xi, puede resultar útil centrar las variables explicativas utilizando su media (x) y escalarlas utilizando su desviación estándar (de). Para mayor comodidad de notación, primero creamos una versión centrada y escalada de $x_i$:
++ $\bar{x}$ e $\bar{y}:$ Son la media de cada variable
+
++ $x_i$ e $y_i:$ Son el valor de las variables para la observación $i$.
+
+## Coeficiente de correlación de Pearson:
+Se utiliza para estudiar la asociación entre un factor de estudio y una variable de respuesta cuantitativa, mide el grado de asociación entre dos variables tomando valores entre $-1$ y $1$.
+
++ Población 
+$$\rho=\frac{Cov(X,Y)}{\sigma_{x}\sigma_{y}} $$
++ Muestra
+$$r_{xy}=\frac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}} $$
+
+## Coeficiente de correlación de Spearman:
+$$r_{s}=1-\frac{6\sum d^{2}_{i}}{n(n^{2}-1)}$$
+Siendo $d_{i}$ la distancia entre los rangos de cada observación $(x_{i}-y_{i})$ y n el número de observaciones.
+
+## Coeficiente Tau de Kendall:
+
+$$\tau=\frac{C-D}{\displaystyle\frac{1}{2}n(n-1)}$$
+
+Siendo $C$ el número de pares concordantes, aquellos en los que el rango de la segunda variable es mayor que el rango de la primera variable. $D$ el número de pares discordantes, cuando el rango de la segunda es igual o menor que el rango de la primera variable.
+
+Las principales diferencias entre estos tres coeficientes de asociación son:
+
++ La correlación de Pearson funciona bien con variables cuantitativas que tienen una distribución normal. Es más sensible a los valores extremos que las otras dos alternativas.
+
++ La correlación de Spearman se emplea cuando los datos son ordinales, de intervalo, o bien cuando no se satisface la condición de normalidad para variables continuas y los datos se pueden transformar a rangos. Es un método no paramétrico.
+
++ La correlación de Kendall es otra alternativa no paramétrica para el estudio de la correlación que trabaja con rangos. Se emplea cuando se dispone de pocos datos y muchos de ellos ocupan la misma posición en el rango, es decir, cuando hay muchas ligaduras.
+
+# Regresión
+## Regresión lineal simple: Consiste en generar un modelo de regresión (ecuación de una recta) que permita explicar la relación lineal que existe entre dos variables. 
+
+$$Y=\beta_{0}+\beta_{1}X_{1}+\epsilon$$
+
++ $\beta_{0}:$ La ordenada en el origen.
+
++ $\beta_{1}:$ La pendiente.
+
++ $\epsilon:$ El error aleatorio.
+
+## Regresión lineal múltiple:
+
+Es una extensión de la regresión lineal simple. Permite generar un modelo lineal en el que el valor de la variable dependiente o respuesta $(Y)$ se determina a partir de un conjunto de variables independientes llamadas predictores 
+$(X_{1}, X_{2}, X_{3},...)$
+
+$$Y_{i}=(\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+...+\beta_{n}X_{ni})+\epsilon_{i}$$
+
+# Regresión polinómica: 
+
+La Regresión Polinomial permite describir relaciones no lineales, La forma más sencilla de hacerlo es incorporar flexibilidad a un modelo lineal introduciendo nuevos predictores obtenidos al elevar a distintas potencias el predictor original.
+
+Partiendo del modelo lineal:
+
+$$y_{i}=\beta_{0}+\beta_{1}x_{i}+\epsilon_{i}$$
+
+Se obtiene un modelo polinómico de grado $d$ a partir de la ecuación:
+
+$$y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}+\epsilon_{i}$$
+## Estandarizacion de las variables:
+Una asociación en forma de $U$ se puede modelar agregando una versión cuadrática de la variable y un parámetro $\beta$ adicional:
+
+$$E(Y_{i})=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i} \hspace{2cm} i=1, ...,N.$$
+
+En la práctica, cuando se utilizan transformaciones como la cuadrática, que pueden crear valores grandes de $x_{i}$, puede resultar útil centrar las variables explicativas utilizando su media $(\bar{x})$ y escalar utilizando su desviación estándar $(sd)$:
 
 $$\tilde{x}_{i}=\displaystyle{\frac{(x_{i}-\bar{x}_{i})}{sd}}$$
-**Tabla:** Estimaciones para el modelo utilizando variables explicativas centradas y escaladas.
-<table>
-|          Término         	| Estimación $b_{j}$ 	| Error estándar 	|
-| ------------------------	|  ------------------	|  --------------	|
-| Constante                	|             37.600 	|          1.332 	|
-| Coeficiente para la edad 	|             -1.452 	|          1.397 	|
-| Coeficiente de peso      	|             -3.793 	|          1.385 	|
-| Coeficiente de proteína  	|             4.350  	|          1.411 	|
-
-
-<div/>
-
-## Ajuste del modelo
-##
-<div style="text-align: justify">
 
 Y se ajusta al modelo:
 
-$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i}$$
-<div/>
+$$E(Y_{i})=\beta_{0}+\beta_{1}\tilde{x}_{i}+\beta_{2}\tilde{x}^{2}_{i} \hspace{2cm} i=1, ...,N.$$
 
-## Ventajas
-##
-<div style="text-align: justify">
+# Modelos lineales generalizados (GLM)
 
-* Una ventaja adicional del centrado es que la estimación de la intersección $\beta_{0}$ ahora relaciona el valor de y promedio con el valor de $x$ promedio en lugar del valor de $y$ promedio cuando $x$ es cero, lo que puede no ser significativo si $x$ no puede ser cero. **Ejemplo:** El peso de una persona.
+Los modelos polinómicos se pueden ajustar mediante regresión lineal por mínimos cuadrados ya que, aunque generan modelos no lineales, su ecuación no deja de ser una ecuación lineal con predictores $x, x_2, x_3, ..., x_d$. 
 
-* Además, los parámetros de **"Slope"** ahora representan un cambio de una desviación estándar que es potencialmente más significativo que un cambio de una sola unidad que puede ser muy pequeño o grande.
+Por esta misma razón, las funciones polinómicas pueden emplearse en regresión logística para predecir respuestas binarias. Solo es necesario realizar una transformación logit.
 
-* Por último, escalar por la desviación estándar facilita la comparación de la importancia de las variables.
 
-<div/>
+$$P(y_{i}>Y|x_{i}=X)=\displaystyle{\frac{exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}{1+exp \left( \beta_{0}+\beta_{1}x_{i}+\beta_{2}x^{2}_{i}+\beta_{3}x^{3}_{i}+...+\beta_{d}x^{d}_{i}\right)}}$$
 
-# Ejemplo en R
-##
-<div style="text-align: justify">
 
-## Datos de la revista PLOS Medicine
 
-Los datos corresponden a $878$ artículos de revistas publicados en la revista PLOS Medicine entre 2011 y 2015. El gráfico muestra el número de autores en el eje $x$ y la longitud del título del artículo (incluidos los espacios) en el eje $y$. Hubo $15$ artículos con más de $30$ autores que se truncaron a $30$. Como el número de autores es discreto, un diagrama de dispersión estándar probablemente tergiversaría los datos ya que los puntos se superpondrían y, por lo tanto, se ocultarían. Para evitar esto, se alteraron los puntos, lo que significa que se agregó un pequeño valor aleatorio a cada punto para evitar la superposición.
+# Modelos Aditivos Generalizados (GAM)
+
+Una forma natural de extender el modelo de regresión lineal múltiple para permitir relaciones no lineales entre cada característica y la respuesta es reemplazar cada componente lineal $\beta_jx_{ij}$ con una función no lineal (suave) $f_j(x_{ij})$. Lo que darìa como resultado el siguiente modelo
+
+$$ y_{i} = \beta_0 + \sum_{i=1}^{n} f_j(x_{ij}) + \epsilon $$
+
+Se denomina modelo aditivo GAM porque calculamos una $f_j$ para cada $X_j$ y luego sumamos todas sus contribuciones.
+
+Los modelos GAM también se pueden usar en situaciones donde Y es una variable cualitativa. A partir del modelo logístico:
+
+
+$$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+\beta_1X_1+\beta_2X_2+...+\beta_pX_p$$
+
+podemos recordar que la transformación logit corresponde al logaritmo de odds de $P(Y = 1 | X)$ versus $P(Y = 0 | X)$. Incorporando funciones no lineales $f_p(x_p)$ entre variables obtenemos el modelo el modelo de regresión logística GAM.
+
+$$log\left(\displaystyle\frac{p(X)}{1-p(X)}\right)=\beta_0+f_1(X_1)+f_2(X_2)+...+f_p(X_p)$$
+
++ Los GAM nos permiten ajustar un $f_j$ no lineal a cada $X_j$, de modo que podamos modelar automáticamente relaciones no lineales que la regresión lineal estándar perderá. Esto significa que no necesitamos probar manualmente muchas transformaciones diferentes en cada variable individualmente.
+
++ Los ajustes no lineales pueden potencialmente hacer predicciones más precisas para la respuesta Y.
+
++ Debido a que el modelo es aditivo, aún podemos examinar el efecto de cada $X_j$ en Y individualmente mientras se mantienen fijas todas las demás variables. Por lo tanto, si estamos interesados en la inferencia, los GAM proporcionan una representación útil.
+
++ La suavidad de la función $f_j$ para la variable $X_j$ se puede resumir mediante grados de libertad.
+
++ La principal limitación de los GAM es que el modelo está restringido a ser aditivo.
+
+# Ejemplo de aplicación
+
+El set de datos *Wage* del paquete ISRL contiene información sobre 3000 trabajadores. Entre las 12 variables registradas se encuentra el salario (wage) y la edad (age). Dada la relación no lineal existente entre estas dos variables, se recurre a un modelo polinómico de grado 4 que permita predecir el salario en función de la edad.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
+suppressMessages(library(ISLR))
+suppressMessages(library(boot))
+suppressMessages(library(plotly))
+data("Wage")
+```
+
+Representación gráfica:
+<center>
+```{r fig.height=4, fig.width=8, message=TRUE, include=T, warning=TRUE}
+ggplot(Wage, aes(x = age, y = wage)) + geom_point(colour = "black")
+```
+
+Mediante cross-validation se identifica con que polinomio se consigue el mejor modelo. El proceso consiste en ajustar un modelo para cada grado de polinomio y estimar su test error (Mean Square Error). El mejor modelo es aquel a partir del cual ya no hay una reducción sustancial del test error.
+
+Se realiza la creación de una variable binaria para aquellos salarios > 250000 dolares para ajustar el modelo.
+
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+Wage$wage_superior250 <- I(Wage$wage > 250)
+table(Wage$wage_superior250)
+```
+
+Donde aquellas personas que cumplan con tener un salario mayor a $250000 dólares serán clasificados como "True" y los que no como "False". 
+
+Se ajustan tres modelos Logit, esto teniendo en cuenta el resultado obtenido mediante validacion cruzada que arrojo que el polinomio con mejor ajuste es el de grado 3.
+
+```{r echo=TRUE, message=TRUE, warning=TRUE}
+modelo_logit <- glm(wage_superior250  ~ poly(age, 2), family = "binomial", data = Wage)
+
+modelo_logit1 <- glm(wage_superior250  ~ poly(age, 3), family = "binomial", data = Wage)
+
+modelo_logit2 <- glm(wage_superior250  ~ poly(age, 4), family = "binomial", data = Wage)
+
+```
+
+
+## Ajuste del modelo logístico
+
+Al emplear la función predict() con un modelo logístico, es importante tener en cuenta que por defecto se devuelve el logaritmo de ODDs (Log_ODDs). Para transformarlos en probabilidad se invierte la función logística:
+
+$$P\left(Y=1|X= \displaystyle\frac{e^{LogODDs}}{1+e^{LogODDs}} \right)$$
+
+Es posible obtener directamente la probabilidad de las predicciones seleccionando el argumento type = "response". 
+
+A pesar de que esta forma es más directa, si junto al valor predicho se quiere obtener su intervalo de confianza y que este caiga dentro de [0, 1], se tienen que realizar los cálculos con los Log ODDs para finalmente transformarlos a probabilidad.
+
+Comparación de los modelos logit con la variable binaria salario
 
 
 # Bibliografía
 ##
 
 * Dobson, A. J., & Barnett, A. G. (2018). An introduction to generalized linear models. CRC press.
+
+* Faraway, J. J. (2014). Linear models with R. CRC press.
+
+* James, G., Witten, D., Hastie, T., & Tibshirani, R. (2015). An Introduction to Statistical Learning with Applications in R, Edn. 6th.
